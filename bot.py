@@ -23,7 +23,7 @@ def keep_alive():
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 MONGO_URI = os.getenv('MONGO_URI')
 ADMIN_ID = int(os.getenv('ADMIN_ID'))
-USDT-TRC20 ID = os.getenv('USDT-TRC20 ID')
+USDT_TRC20 ID = os.getenv('USDT_TRC20 ID')
 CONTACT_USERNAME = os.getenv('CONTACT_USERNAME')
 
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -133,7 +133,7 @@ def user_pays(call):
     markup.add(InlineKeyboardButton("📞 Contact Admin", url=f"https://t.me/{CONTACT_USERNAME}"))
     
     bot.send_photo(call.message.chat.id, qr_url, 
-                   caption=f"Plan: {mins} Minutes\nPrice: ৳{price}\nUPI ID: `{USDT-TRC20 ID}`\n\nPlease complete the payment and click 'I Have Paid'.", 
+                   caption=f"Plan: {mins} Minutes\nPrice: ৳{price}\nUPI ID: `{USDT_TRC20 ID}`\n\nPlease complete the payment and click 'I Have Paid'.", 
                    reply_markup=markup, parse_mode="Markdown")
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('paid_'))
