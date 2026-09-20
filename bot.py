@@ -23,7 +23,7 @@ def keep_alive():
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 MONGO_URI = os.getenv('MONGO_URI')
 ADMIN_ID = int(os.getenv('ADMIN_ID'))
-USDT_TRC20 ID = os.getenv('USDT_TRC20 ID')
+USDT_ID = os.getenv('USDT_ID')
 CONTACT_USERNAME = os.getenv('CONTACT_USERNAME')
 
 bot = telebot.TeleBot(BOT_TOKEN)
