@@ -133,7 +133,7 @@ def user_pays(call):
     markup.add(InlineKeyboardButton("📞 Contact Admin", url=f"https://t.me/{CONTACT_USERNAME}"))
     
     bot.send_photo(call.message.chat.id, qr_url, 
-                   caption=f"Plan: {mins} Minutes\nPrice: ${price}\nUPI ID: `{USDT_TRC20 ID}`\n\nPlease complete the payment and click 'I Have Paid'.", 
+                   caption=f"Plan: {mins} Minutes\nPrice: ${price}\nUSDT ID: `{USDT_ID}`\n\nPlease complete the payment and click 'I Have Paid'.", 
                    reply_markup=markup, parse_mode="Markdown")
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('paid_'))
