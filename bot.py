@@ -23,7 +23,7 @@ def keep_alive():
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 MONGO_URI = os.getenv('MONGO_URI')
 ADMIN_ID = int(os.getenv('ADMIN_ID'))
-UPI_ID = os.getenv('UPI_ID')
+USDT-TRC20 ID = os.getenv('USDT-TRC20 ID')
 CONTACT_USERNAME = os.getenv('CONTACT_USERNAME')
 
 bot = telebot.TeleBot(BOT_TOKEN)
@@ -49,7 +49,7 @@ def start_handler(message):
                 # Display Dynamic Plans
                 for p_time, p_price in ch_data['plans'].items():
                     label = f"{p_time} Min" if int(p_time) < 60 else f"{int(p_time)//1440} Days"
-                    markup.add(InlineKeyboardButton(f"💳 {label} - ₹{p_price}", callback_data=f"select_{ch_id}_{p_time}"))
+                    markup.add(InlineKeyboardButton(f"💳 {label} - ৳{p_price}", callback_data=f"select_{ch_id}_{p_time}"))
                 
                 markup.add(InlineKeyboardButton("📞 Contact Admin", url=f"https://t.me/{CONTACT_USERNAME}"))
                 bot.send_message(message.chat.id, 
@@ -126,14 +126,14 @@ def user_pays(call):
     ch_data = channels_col.find_one({"channel_id": int(ch_id)})
     price = ch_data['plans'][mins]
     
-    qr_url = f"https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa={UPI_ID}%26am={price}%26cu=INR"
+    qr_url = f"https://ibb.co.com/ycdK8dRP"
     
     markup = InlineKeyboardMarkup()
     markup.add(InlineKeyboardButton("✅ I Have Paid", callback_data=f"paid_{ch_id}_{mins}"))
     markup.add(InlineKeyboardButton("📞 Contact Admin", url=f"https://t.me/{CONTACT_USERNAME}"))
     
     bot.send_photo(call.message.chat.id, qr_url, 
-                   caption=f"Plan: {mins} Minutes\nPrice: ₹{price}\nUPI ID: `{UPI_ID}`\n\nPlease complete the payment and click 'I Have Paid'.", 
+                   caption=f"Plan: {mins} Minutes\nPrice: ৳{price}\nUPI ID: `{USDT-TRC20 ID}`\n\nPlease complete the payment and click 'I Have Paid'.", 
                    reply_markup=markup, parse_mode="Markdown")
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('paid_'))
@@ -147,7 +147,7 @@ def admin_notify(call):
     markup.add(InlineKeyboardButton("✅ Approve", callback_data=f"app_{user.id}_{ch_id}_{mins}"))
     markup.add(InlineKeyboardButton("❌ Reject", callback_data=f"rej_{user.id}"))
     
-    bot.send_message(ADMIN_ID, f"🔔 *Payment Verification Required!*\n\nUser: {user.first_name}\nChannel: {ch_data['name']}\nPlan: {mins} Mins\nPrice: ₹{price}", 
+    bot.send_message(ADMIN_ID, f"🔔 *Payment Verification Required!*\n\nUser: {user.first_name}\nChannel: {ch_data['name']}\nPlan: {mins} Mins\nPrice: ৳{price}", 
                      reply_markup=markup, parse_mode="Markdown")
     
     u_markup = InlineKeyboardMarkup().add(InlineKeyboardButton("📞 Contact Admin", url=f"https://t.me/{CONTACT_USERNAME}"))
